@@ -11,7 +11,7 @@ properties([
     pipelineTriggers([
             [$class: "GitHubPushTrigger"]
     ]),
-    [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/ossimlabs/ossim-centos-minimal.git'],
+    [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/ossimlabs/ossim-ubuntu-minimal.git'],
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '20')),
     disableConcurrentBuilds()
 ])
@@ -48,10 +48,10 @@ timeout(time: 60, unit: 'MINUTES') {
             withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_DOWNLOAD_URL}") {
                 dir("compile-ossim") {
                     sh """
-                        export BUILDER_IMAGE="${DOCKER_REGISTRY_DOWNLOAD_URL}/ossim-builder-minimal-centos:\$(cat ../version.txt)"
+                        export BUILDER_IMAGE="${DOCKER_REGISTRY_DOWNLOAD_URL}/ossim-builder-minimal-ubuntu:\$(cat ../version.txt)"
                         ./build.sh
                     """
-                    archiveArtifacts "output/ossim-dist-minimal-centos.tgz"
+                    archiveArtifacts "output/ossim-dist-minimal-ubuntu.tgz"
                 }
             }
         }
@@ -69,8 +69,8 @@ timeout(time: 60, unit: 'MINUTES') {
         {
             withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}") {
                 sh """
-                    docker tag ossim-runtime-minimal-centos:local ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-runtime-minimal-centos:${OSSIM_BRANCH}
-                    docker push ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-runtime-minimal-centos:${OSSIM_BRANCH}
+                    docker tag ossim-runtime-minimal-ubuntu:local ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-runtime-minimal-ubuntu:${OSSIM_BRANCH}
+                    docker push ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-runtime-minimal-ubuntu:${OSSIM_BRANCH}
                 """
             }
         }
