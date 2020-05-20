@@ -1,0 +1,7 @@
+compile-ossim/work/
+compile-ossim/output/
+compile-ossim/ossim-repos/
+builder-image/deps/
+ossim-dist-minimal-centos.tgz
+.DS_Store
+.idea
