@@ -1,4 +1,4 @@
-FROM nexus-docker-public-group.ossim.io/alpine:latest
+FROM ubuntu:latest
 
 ENV SPRING_CLOUD_CONFIG_ENABLED=false \
     SPRING_CLOUD_DISCOVERY_ENABLED=false \
@@ -9,12 +9,14 @@ ENV SPRING_CLOUD_CONFIG_ENABLED=false \
     PATH=/usr/local/bin:$PATH \
     HOME=/home/omar 
 
-RUN apk add --update tiff jpeg libpng sqlite-libs libstdc++ curl ffmpeg unzip zip  bash openjdk8 \
-    && rm -rf /var/cache/apk/* \
-    && adduser -D -h $HOME -s /sbin/nologin -u 1001 omar \
-    && chown 1001:0 -R $HOME 
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install libtiff-dev libjpeg-dev libpng-dev sqlite3 libstdc++6 curl ffmpeg unzip zip bash openjdk-8-jdk -y && \
+    apt-get clean && \
+    adduser --disabled-password --home $HOME --shell /sbin/nologin --uid 1001 omar && \
+    chown 1001:0 -R $HOME
 
-ADD ./ossim-dist-minimal-centos.tgz /usr/local
+ADD ./ossim-dist-minimal-ubuntu.tgz /usr/local
     
 EXPOSE 8080
 
