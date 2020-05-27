@@ -33,7 +33,8 @@ RUN apt-get update -y\
 
 
 #4
-RUN curl -s "https://get.sdkman.io" | bash \
+RUN ln -s /usr/bin/swig3.0 /usr/bin/swig && \
+    curl -s "https://get.sdkman.io" | bash \
     && bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
         yes | sdk install groovy 2.4.17 && \
         yes | sdk install grails 4.0.1 && \
