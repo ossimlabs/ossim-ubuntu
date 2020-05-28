@@ -1,7 +1,5 @@
-#FROM alpine:latest
-#1
 FROM nexus-docker-public-group.ossim.io/ubuntu:latest as build
-#2
+
 ENV OSSIM_DEV_HOME=/work \
     OSSIM_HOME=/work/ossim \
     OSSIM_BUILD_DIR=/work/build \
@@ -15,7 +13,6 @@ ENV OSSIM_DEV_HOME=/work \
     LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$PATH \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-#3
 RUN apt-get update -y\
 
     && DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata \
@@ -29,10 +26,9 @@ RUN apt-get update -y\
                 libgeos-dev geotiff-bin \
                 python3.7 libgdal-dev python3-gdal gdal-bin 
 #               which geotiff15-dev geos38-dev gdal30-dev
-    # && apt-get upgrade -y
+#               && apt-get upgrade -y
 
 
-#4
 RUN ln -s /usr/bin/swig3.0 /usr/bin/swig && \
     curl -s "https://get.sdkman.io" | bash \
     && bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
@@ -46,36 +42,30 @@ RUN ln -s /usr/bin/swig3.0 /usr/bin/swig && \
 #    && chown -R omar:omar /usr/local \
     && rm -rf /var/cache/apt/*
 
-#5
 RUN ln -s /root/.sdkman/candidates/gradle/current/bin/gradle /usr/bin/gradle && \
     ln -s /root/.sdkman/candidates/grails/current/bin/grails /usr/bin/grails && \
     ln -s /root/.sdkman/candidates/groovy/current/bin/groovy /usr/bin/groovy && \
     ln -s /root/.sdkman/candidates/maven/current/bin/mvn /usr/bin/mvn
 
-#6
 COPY build-scripts /build-scripts
-#7
+
 COPY deps /deps
-#8
+
 WORKDIR /deps
 
-#9
 RUN /build-scripts/build-deps.sh
 
-#10
+
 RUN yes | rm -r /deps/*/.git
 
 # USER omar
 # WORKDIR /home/omar
-#11
 RUN mkdir -p /work
 
-#12
 FROM scratch
-#13
+
 COPY --from=build / /
 
-#14
 ENV OSSIM_DEV_HOME=/work \
     OSSIM_HOME=/work/ossim \
     OSSIM_BUILD_DIR=/work/build \
@@ -89,7 +79,6 @@ ENV OSSIM_DEV_HOME=/work \
     LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$PATH \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-#15
 WORKDIR /work
-#16
+
 CMD /build-scripts/build-ossim.sh
