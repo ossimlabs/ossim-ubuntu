@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM nexus-docker-public-group.ossim.io/ubuntu:latest
 
 ENV SPRING_CLOUD_CONFIG_ENABLED=false \
     SPRING_CLOUD_DISCOVERY_ENABLED=false \

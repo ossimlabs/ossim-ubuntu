@@ -1,4 +1,4 @@
-FROM ubuntu:latest as build
+FROM nexus-docker-public-group.ossim.io/ubuntu:latest as build
 
 ENV OSSIM_DEV_HOME=/work \
     OSSIM_HOME=/work/ossim \
