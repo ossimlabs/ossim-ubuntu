@@ -3,7 +3,7 @@
 cd hdf5
 mkdir -p build
 cd build
-cmake3 \
+cmake \
   -DCMAKE_INSTALL_PREFIX=/usr/local \
   -DSZIP_LIBRARY=/usr/local/lib/libszip.a \
   -DSZIP_INCLUDE_DIR=/usr/local/include \
