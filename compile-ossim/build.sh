@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-
+./checkout-ossim.sh
 docker run --rm -i \
   -v "${PWD}/build-scripts/:/build-scripts/" \
   -v "${PWD}/ossim-repos:/work" \
