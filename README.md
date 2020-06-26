@@ -48,7 +48,7 @@ will create an artifact called **output/ossim-dist-minimal-ubuntu.tgz** that con
 
 ## Build Runtime
 
-If you desire a runtime image that has the runtime libraries of the distribution installed then you can build the following:
+If you desire a runtime image that has the runtime libraries of the distribution installed then you can build the following command:
 
 ```bash
 cd runtime
