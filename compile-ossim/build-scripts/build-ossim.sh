@@ -69,7 +69,7 @@ for x in `find /usr/local/bin /usr/local/lib /usr/local/lib64 /usr/lib64 \
 done
 
 cp -r /usr/lib64 /usr/local
-mv /usr/local/lib64/mysql/* /usr/local/lib64
+mv /usr/local/lib64/mysql/* /usr/local/lib64/
 
 cp -r /usr/geos38/lib64 /usr/local/
 cp -r /usr/libgeotiff15/lib /usr/local/
