@@ -137,7 +137,7 @@ timeout(time: 60, unit: 'MINUTES') {
             container('docker'){
                 withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}") {
                     sh """
-                        docker tag ossim-runtime-minimal-ubuntu:local ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-ubuntu-runtime:${OSSIM_BRANCH}
+                        docker tag ossim-ubuntu-runtime:local ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-ubuntu-runtime:${OSSIM_BRANCH}
                         docker push ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-ubuntu-runtime:${OSSIM_BRANCH}
                     """
                 }
