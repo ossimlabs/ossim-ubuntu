@@ -106,6 +106,19 @@ timeout(time: 60, unit: 'MINUTES') {
                         archiveArtifacts "compile-ossim/output/ossim-dist-minimal-ubuntu.tgz"
             }
         }
+        stage ("Publish to s3 bucket")
+                {
+                    withAWS(
+                        credentials: 'Jenkins IAM User',
+                        region: 'us-east-1'){
+                            s3Upload(
+                                acl: 'PublicRead',
+                                bucket: 'o2-delivery',
+                                path: "deepcore/ubuntu/ossim-dist-minimal-ubuntu-${env.OSSIM_BUILDER_VERSION}.tgz",
+                                file: 'compile-ossim/output/ossim-dist-minimal-ubuntu.tgz'
+                            )
+                        }
+                }
         stage ("Build Runtime Image")
         {
             container('docker'){
