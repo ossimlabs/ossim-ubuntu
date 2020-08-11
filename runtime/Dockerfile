@@ -5,7 +5,7 @@ ENV SPRING_CLOUD_CONFIG_ENABLED=false \
     OSSIM_DATA=/data \
     OSSIM_INSTALL_PREFIX=/usr/local \
     OSSIM_PREFS_FILE=/usr/local/share/ossim/ossim-preferences-template \
-    LD_LIBRARY_PATH=/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH \
+    LD_LIBRARY_PATH=/usr/local/lib64:/usr/local/lib:/usr/local/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH \
     PATH=/usr/local/bin:$PATH \
     HOME=/home/omar 
 

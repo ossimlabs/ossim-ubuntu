@@ -63,9 +63,13 @@ make install
 
 /build-scripts/build-joms.sh
 
-for x in `find /usr/local/bin /usr/local/lib /usr/local/lib64 -type f`; do
+for x in `find /usr/local/bin /usr/local/lib /usr/lib64 /usr/lib \
+  -type f`; do
   strip $x || true
 done
+
+cp -r /usr/lib64 /usr/local
+cp -r /usr/lib /usr/local
 
 tar -cvz -C /usr/local -f /output/ossim-dist-minimal-ubuntu.tgz .
 chmod a+rw /output/ossim-dist-minimal-ubuntu.tgz
