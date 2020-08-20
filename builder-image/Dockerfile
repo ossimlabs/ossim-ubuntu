@@ -28,24 +28,25 @@ RUN apt-get update -y\
 #               which geotiff15-dev geos38-dev gdal30-dev
 #               && apt-get upgrade -y
 
-RUN    wget https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.run \
-       && chmod +x qt-everywhere-opensource-src-4.8.7.run \
-       && ./qt-everywhere-opensource-src-4.8.7.run \
-       && apt-get install build-essential \
-       && apt-get install libfontconfig1 \
-       && apt-get install mesa-common-dev \
-       && apt-get install libglu1-mesa-dev -y
+#RUN    wget https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.run \
+#       && chmod +x qt-everywhere-opensource-src-4.8.7.run \
+#       && ./qt-everywhere-opensource-src-4.8.7.run \
+#       && apt-get install build-essential \
+#       && apt-get install libfontconfig1 \
+#       && apt-get install mesa-common-dev \
+#       && apt-get install libglu1-mesa-dev -y
 
 
-#RUN    wget https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz \
-#       && gunzip qt-everywhere-opensource-src-4.8.7.tar.gz \
-#       && tar xvf qt-everywhere-opensource-src-4.8.7.tar \
-#       && cd qt-everywhere-opensource-src-4.8.7 \
-#       && yes | ./configure -opensource \
+RUN    wget https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz \
+       && gunzip qt-everywhere-opensource-src-4.8.7.tar.gz \
+       && tar xvf qt-everywhere-opensource-src-4.8.7.tar \
+       && cd qt-everywhere-opensource-src-4.8.7 \
+       && yes | ./configure -opensource \
 #       && make \
-#       && su -c "make install" \
-#       && make confclean \
-#       && export PATH=/usr/local/Qt-4.8.7/bin:$PATH
+       && apt-get install -y make \
+       && su -c "make install" \
+       && make confclean \
+       && export PATH=/usr/local/Qt-4.8.7/bin:$PATH
 
 RUN ln -s /usr/bin/swig4.0 /usr/bin/swig && \
     curl -s "https://get.sdkman.io" | bash \
