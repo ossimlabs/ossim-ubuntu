@@ -37,16 +37,18 @@ RUN apt-get update -y\
 #       && apt-get install libglu1-mesa-dev -y
 
 
-RUN    wget https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz \
-       && gunzip qt-everywhere-opensource-src-4.8.7.tar.gz \
-       && tar xvf qt-everywhere-opensource-src-4.8.7.tar \
-       && cd qt-everywhere-opensource-src-4.8.7 \
-       && yes | ./configure -opensource \
+#RUN    wget https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz \
+#       && gunzip qt-everywhere-opensource-src-4.8.7.tar.gz \
+#       && tar xvf qt-everywhere-opensource-src-4.8.7.tar \
+#       && cd qt-everywhere-opensource-src-4.8.7 \
+#       && yes | ./configure -opensource \
 #       && make \
-       && apt-get install -y make \
-       && su -c "make install" \
-       && make confclean \
-       && export PATH=/usr/local/Qt-4.8.7/bin:$PATH
+#       && apt-get install -y make \
+#       && su -c "make install" \
+#       && make confclean \
+#       && export PATH=/usr/local/Qt-4.8.7/bin:$PATH
+
+RUN apt-get install qt5-default -y
 
 RUN ln -s /usr/bin/swig4.0 /usr/bin/swig && \
     curl -s "https://get.sdkman.io" | bash \
