@@ -23,7 +23,7 @@ RUN apt-get update -y\
                 libtheora-dev libvorbis-dev xz-utils libsdl2-dev openjdk-8-jdk libmp3lame-dev \
                 libturbojpeg-dev libcurl4-openssl-dev curl cmake unzip zip ant swig4.0 ffmpeg lzma liblzma-dev \
                 libgeos-dev geotiff-bin \
-                python3.7 libgdal-dev python3-gdal gdal-bin qt4-dev-tools
+                python3 libgdal-dev python3-gdal gdal-bin qt4-dev-tools
 
 RUN apt-get install qt5-default -y
 
