@@ -10,7 +10,7 @@ ENV OSSIM_DEV_HOME=/work \
     OSSIM_INSTALL_PREFIX=/usr/local \
     OSSIM_DATA=/data \
     PATH=/usr/local/bin:/usr/bin:$PATH \
-    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$PATH \
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/lib64 \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 RUN echo "deb http://archive.ubuntu.com/ubuntu/ eoan universe" >> /etc/apt/sources.list
@@ -24,8 +24,6 @@ RUN apt-get update -y\
                 libturbojpeg-dev libcurl4-openssl-dev curl cmake unzip zip ant swig4.0 ffmpeg lzma liblzma-dev \
                 libgeos-dev geotiff-bin \
                 python3 libgdal-dev python3-gdal gdal-bin qt4-dev-tools
-
-RUN apt-get install qt5-default -y
 
 RUN ln -s /usr/bin/swig4.0 /usr/bin/swig && \
     curl -s "https://get.sdkman.io" | bash \
