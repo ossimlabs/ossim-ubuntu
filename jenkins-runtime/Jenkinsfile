@@ -42,6 +42,7 @@ podTemplate(
       name: 'builder',
       command: 'cat',
       ttyEnabled: true
+      alwaysPullImage: true
     )
   ],
   volumes: [
