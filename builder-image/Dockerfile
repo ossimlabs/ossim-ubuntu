@@ -25,6 +25,9 @@ RUN apt-get update -y\
                 libgeos-dev geotiff-bin \
                 python3 libgdal-dev python3-gdal gdal-bin qt4-dev-tools
 
+
+RUN apt-get install qt5-default -y
+
 RUN ln -s /usr/bin/swig4.0 /usr/bin/swig && \
     curl -s "https://get.sdkman.io" | bash \
     && bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && \
