@@ -10,23 +10,20 @@ ENV OSSIM_DEV_HOME=/work \
     OSSIM_INSTALL_PREFIX=/usr/local \
     OSSIM_DATA=/data \
     PATH=/usr/local/bin:/usr/bin:$PATH \
-    LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$PATH \
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/lib64 \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ eoan universe" >> /etc/apt/sources.list
 RUN apt-get update -y\
 
     && DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata \
-#    && apt install -y epel-release deltarpm \
-#                   https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm \
     && apt-get install -y \
                 wget git build-essential make autoconf automake libtool nasm yasm libgnutls28-dev \
                 libass-dev libbluray-dev libmodplug-dev lame libopenjp2-7-dev librsvg2-dev libsoxr-dev libspeex-dev \
                 libtheora-dev libvorbis-dev xz-utils libsdl2-dev openjdk-8-jdk libmp3lame-dev \
                 libturbojpeg-dev libcurl4-openssl-dev curl cmake unzip zip ant swig4.0 ffmpeg lzma liblzma-dev \
                 libgeos-dev geotiff-bin \
-                python3.7 libgdal-dev python3-gdal gdal-bin 
-#               which geotiff15-dev geos38-dev gdal30-dev
-#               && apt-get upgrade -y
+                python3 libgdal-dev python3-gdal gdal-bin qt4-dev-tools
 
 
 RUN ln -s /usr/bin/swig4.0 /usr/bin/swig && \
@@ -38,8 +35,6 @@ RUN ln -s /usr/bin/swig4.0 /usr/bin/swig && \
         yes | sdk install maven 3.6.3 && \
         rm -rf $HOME/.sdkman/archives/* && \
         rm -rf $HOME/.sdkman/tmp/*" \
-#    && adduser -D -s /bin/bash omar \
-#    && chown -R omar:omar /usr/local \
     && rm -rf /var/cache/apt/*
 
 RUN ln -s /root/.sdkman/candidates/gradle/current/bin/gradle /usr/bin/gradle && \
@@ -55,11 +50,8 @@ WORKDIR /deps
 
 RUN /build-scripts/build-deps.sh
 
-
 RUN yes | rm -r /deps/*/.git
 
-# USER omar
-# WORKDIR /home/omar
 RUN mkdir -p /work
 
 FROM scratch
