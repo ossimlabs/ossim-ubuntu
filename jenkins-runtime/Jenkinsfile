@@ -41,7 +41,7 @@ podTemplate(
       image: "${DOCKER_REGISTRY_DOWNLOAD_URL}/ossim-builder-minimal-ubuntu:${OSSIM_BUILDER_VERSION}",
       name: 'builder',
       command: 'cat',
-      ttyEnabled: true
+      ttyEnabled: true ,
       alwaysPullImage: true
     )
   ],
