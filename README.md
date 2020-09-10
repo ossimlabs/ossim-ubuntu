@@ -1,6 +1,6 @@
-# CentOS minimal
+# Ubuntu minimal
 
-This repo builds a dependency image that is used to build the ossim library.  It also has a runtime image that injects the runtime portion of the ossim distribution into the centos image.
+This repo builds a dependency image that is used to build the ossim library.  It also has a runtime image that injects the runtime portion of the ossim distribution into the Ubuntu image.
 
 We will first need to create a dependency builder image that will be used to build the ossim libraries.
 
@@ -33,7 +33,7 @@ cd build-image
 ./build.sh
 ```
 
-The build script will produce the building image called **ossim-builder-minimal-centos:local**
+The build script will produce the building image called **ossim-builder-minimal-ubuntu:local**
 
 which will contain the minimal necessary dependencies to build the ossim repos.
 
@@ -44,11 +44,11 @@ cd compile-ossim
 ./build.sh
 ```
 
-will create an artifact called **output/ossim-dist-minimal-centos.tgz** that contains the install of ossim headers, libraries, and executable.
+will create an artifact called **output/ossim-dist-minimal-ubuntu.tgz** that contains the install of ossim headers, libraries, and executable.
 
 ## Build Runtime
 
-If you desire a runtime image that has the runtime libraries of the distribution installed then you can build the following:
+If you desire a runtime image that has the runtime libraries of the distribution installed then you can build using the following command:
 
 ```bash
 cd runtime

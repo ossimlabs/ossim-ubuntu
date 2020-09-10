@@ -20,6 +20,7 @@ rm -f $OSSIM_BUILD_DIR/CMakeCache.txt
 # export Qt5Widgets_DIR=$QTDIR/lib/cmake/Qt5Widgets
 # export Qt5Core_DIR=$QTDIR/lib/cmake/Qt5Core
 # export Qt5OpenGL_DIR=$QTDIR/lib/cmake/Qt5OpenGL
+export BUILD_OSSIM_QT4=ON
 export BUILD_GEOPDF_PLUGIN=OFF 
 export BUILD_HDF5_PLUGIN=OFF
 export BUILD_OSSIM_HDF5_SUPPORT=OFF
@@ -39,7 +40,7 @@ export BUILD_WEB_PLUGIN=ON
 export BUILD_AWS_PLUGIN=OFF
 export BUILD_OSSIM_PLANET_GUI=OFF
 export BUILD_CSM_PLUGIN=OFF
-export BUILD_KAKADU_PLUGIN=ON
+#export BUILD_KAKADU_PLUGIN=ON
 export BUILD_GEOPDF_PLUGIN=OFF
 export BUILD_POTRACE_PLUGIN=OFF
 export BUILD_OSSIM_FRAMEWORKS=OFF
@@ -63,9 +64,13 @@ make install
 
 /build-scripts/build-joms.sh
 
-for x in `find /usr/local/bin /usr/local/lib /usr/local/lib64 -type f`; do
+for x in `find /usr/local/bin /usr/local/lib /usr/lib64 /usr/lib \
+  -type f`; do
   strip $x || true
 done
 
-tar -cvz -C /usr/local -f /output/ossim-dist-minimal-centos.tgz .
-chmod a+rw /output/ossim-dist-minimal-centos.tgz
+cp -r /usr/lib64 /usr/local
+cp -r /usr/lib /usr/local
+
+tar -cvz -C /usr/local -f /output/ossim-dist-minimal-ubuntu.tgz .
+chmod a+rw /output/ossim-dist-minimal-ubuntu.tgz
