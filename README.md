@@ -29,7 +29,7 @@ If you have your own kakadu then you must modify the [checkout-kakadu.sh](./buil
 ### Build Dependencies
 
 ```bash
-cd build-image
+cd builder-image
 ./build.sh
 ```
 
