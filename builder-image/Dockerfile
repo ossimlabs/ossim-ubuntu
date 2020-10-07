@@ -15,11 +15,8 @@ ENV OSSIM_DEV_HOME=/work \
 
 RUN apt update -y \
     && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev ffmpeg libavcodec-dev \
-    libavformat-dev  libavdevice-dev libgdal-dev  openjdk-11-jdk qt4-dev-tools\
-    && ./build-kakadu.sh \
-    && ./build-ossim.sh \
-    # && ./build-joms.sh \
-    && echo ""
+    libavformat-dev  libavdevice-dev libgdal-dev  openjdk-11-jdk qt4-dev-tools
+
 
 COPY build-scripts /build-scripts
 
