@@ -135,8 +135,8 @@ podTemplate(
             container('docker'){                  
                 withDockerRegistry(credentialsId: 'dockerCredentials', url: "https://${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}") {
                     sh """
-                        docker tag ossim-builder-minimal-ubuntu:local ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-builder-minimal-ubuntu:\$(cat version.txt)
-                        docker push ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-builder-minimal-ubuntu:\$(cat version.txt)
+                        docker tag ossim-builder-minimal-ubuntu:local ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-builder-minimal-ubuntu-18.04:\$(cat version.txt)
+                        docker push ${DOCKER_REGISTRY_PRIVATE_UPLOAD_URL}/ossim-builder-minimal-ubuntu-18.04:\$(cat version.txt)
                     """
                 }
             }

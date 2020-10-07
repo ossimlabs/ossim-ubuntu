@@ -1,0 +1,110 @@
+properties([
+    parameters ([
+        string(name: 'BUILD_NODE', defaultValue: 'ossim-build', description: 'The build node to run on'),
+        string(name: 'ARTIFACT_TYPE', defaultValue: 'centos-7', description: 'type of artifact to pull'),
+        string(name: 'OSSIM_QT4_GIT_BRANCH', defaultValue: 'dev', description: ''),
+        string(name: 'OSSIM_GIT_BRANCH', defaultValue: 'dev', description: ''),
+        booleanParam(name: 'CLEAN_WORKSPACE', defaultValue: true, description: 'Clean the workspace at the end of the run'),
+        booleanParam(name: 'MAKE_VERBOSE', defaultValue: true, description: ''),
+    ]),
+    [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/ossimlabs/ossim-qt4'],
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '20')),
+    disableConcurrentBuilds()
+])
+node ("${BUILD_NODE}")
+{
+   dockerEnv=""
+   try{
+      env.OSSIM_GIT_BRANCH ="${OSSIM_GIT_BRANCH}"
+
+      stage( "Download Artifacts" )
+      {
+        withCredentials([string(credentialsId: 'o2-artifact-project', variable: 'o2ArtifactProject')]) {
+            step ([$class: "CopyArtifact",
+              projectName: o2ArtifactProject,
+              filter: "common-*.groovy",
+              flatten: true])
+        }
+
+        step ([$class: "CopyArtifact",
+            projectName: "ossim-sandbox-docker-multibranch/${OSSIM_GIT_BRANCH}",
+            filter: "ossim-base-build-${ARTIFACT_TYPE}.tgz",
+            flatten: true])
+
+        step ([$class: "CopyArtifact",
+            projectName: "ossim-sandbox-ossimbuild-multibranch/${OSSIM_GIT_BRANCH}",
+            filter: "ossim-sandbox-${ARTIFACT_TYPE}-runtime.tgz",
+            flatten: true])
+
+        step ([$class: "CopyArtifact",
+            projectName: "ossim-sandbox-ossimbuild-multibranch/${OSSIM_GIT_BRANCH}",
+            filter: "ossim-${ARTIFACT_TYPE}-dev.tgz",
+            flatten: true])
+
+        step ([$class: "CopyArtifact",
+            projectName: "build-qt4-dependency",
+            filter: "qt4-${ARTIFACT_TYPE}.tgz",
+            flatten: true])
+
+        load "common-variables.groovy"
+        commonFunctions = load "common-functions.groovy"
+        dockerEnv = commonFunctions?.getDockerEnv()
+        sh "echo Finished Download Artifacts -- PWD = ${PWD}"
+        sh "ls -la"
+      }
+
+      stage("Checkout")
+      {
+         dir("ossim-sandbox"){
+            git branch: "${OSSIM_GIT_BRANCH}",
+            url: "${GIT_PUBLIC_SERVER_URL}/ossim-sandbox.git",
+            credentialsId: "${CREDENTIALS_ID}"
+         }
+
+         dir("ossim-qt4")
+         {
+            git branch: "${OSSIM_QT4_GIT_BRANCH}",
+            url: "${GIT_PUBLIC_SERVER_URL}/ossim-qt4.git",
+            credentialsId: "${CREDENTIALS_ID}"
+         }
+      }
+
+      stage("Load Build Image")
+      {
+         sh "docker load -i ${env.WORKSPACE}/ossim-base-build-${ARTIFACT_TYPE}.tgz"
+      }
+
+      stage("Build OSSIM Qt4")
+      {
+         DOCKER_LABEL = "latest"
+         if(OSSIM_GIT_BRANCH == "master")
+            DOCKER_LABEL="release"
+         else if(OSSIM_GIT_BRANCH != "dev" )
+            DOCKER_LABEL=OSSIM_GIT_BRANCH
+         dockerEnv += "OSSIM_INSTALL_PREFIX=/usr/local"
+         dir( "${ env.WORKSPACE }" )
+         {
+            writeFile file: "${env.WORKSPACE}/env.txt", text: dockerEnv
+
+            sh """
+               ossim-sandbox/docker-run.sh --env-file ${env.WORKSPACE}/env.txt \
+                   ossim-base-build-${ARTIFACT_TYPE}:${DOCKER_LABEL} \
+                   ossim-qt4/scripts/build-ossim-qt4.sh $ARTIFACT_TYPE
+             """
+         }
+      }
+
+      stage("Archive")
+      {
+         archiveArtifacts "ossim-qt4-${ARTIFACT_TYPE}.tgz"
+      }
+   }
+   finally
+   {
+      stage("Clean Workspace")
+      {
+         if ("${CLEAN_WORKSPACE}" == "true")
+            step([$class: 'WsCleanup'])
+      }
+   }
+}

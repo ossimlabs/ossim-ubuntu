@@ -1,5 +1,4 @@
 #!/bin/sh
 
-ln ../compile-ossim/output/ossim-dist-minimal-ubuntu.tgz ./
-docker build -t ossim-ubuntu-runtime:local "$@" . 
-
+docker build -t ossim-runtime-ubuntu .
+docker run -it --rm  -v $PWD/dist:/dist ossim-runtime-ubuntu tar cvfz /dist/ossim-runtime-ubuntu.tgz /usr/local/
