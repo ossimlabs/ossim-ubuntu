@@ -97,7 +97,7 @@ podTemplate(
             
             container('git'){
                 dir("builder-image") {
-                    dir("ossim-private"){
+                    dir("deps/ossim-private"){
                         git(
                             url: 'git@github.com:Maxar-Corp/ossim-private.git',
                             credentialsId: 'ossimlabs-minion-ssh-key',
