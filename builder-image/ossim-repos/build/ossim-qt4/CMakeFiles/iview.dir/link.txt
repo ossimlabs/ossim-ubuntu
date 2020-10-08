@@ -1,1 +1,0 @@
-/usr/bin/c++  -DKDU_NO_THREADS  -O3 -DNDEBUG  -rdynamic CMakeFiles/iview.dir/apps/iview/iview.cpp.o CMakeFiles/iview.dir/qrc_app.cxx.o  -o ../bin/iview  -Wl,-rpath,/work/build/lib: ../lib/libossimQt.so.1.9.0 ../lib/libossim.so.1.9.0 -lgeos_c -lgeotiff -ldl -lfreetype -lz -lpthread -ljpeg -lQt3Support -lQtGui -lQtCore -ltiff 

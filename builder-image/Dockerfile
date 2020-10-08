@@ -49,4 +49,4 @@ ENV OSSIM_DEV_HOME=/work \
 
 WORKDIR /work
 
-CMD /build-ossim.sh
+CMD /build-scripts/build-ossim.sh

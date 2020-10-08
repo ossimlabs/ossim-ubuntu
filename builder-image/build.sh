@@ -9,4 +9,5 @@ mkdir -p "${DEPS_DIR}"
 
 "${CHECKOUT_SCRIPTS_DIR}/checkout-deps.sh"
 
-docker build "$@" -t ossim-builder-ubuntu .
+docker build -t ossim-builder-ubuntu .
+

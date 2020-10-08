@@ -134,13 +134,13 @@ timeout(time: 60, unit: 'MINUTES') {
             container('builder'){
                         sh """
                             mkdir /output
-                            mv ./builder-image/ossim-repos/* /work
-                            mv ./builder-image/build-scripts/* /build-scripts
+                            mv ./compile-ossim/ossim-repos/* /work
+                            mv ./compile-ossim/build-scripts/* /build-scripts
                             cd /work
                             /build-scripts/build-ossim.sh
                             mv /output/ ${WORKSPACE}/builder/output/
                         """
-                        archiveArtifacts "builder-image/output/ossim-dist-minimal-ubuntu.tgz"
+                        archiveArtifacts "compile-ossim/output/ossim-dist-minimal-ubuntu.tgz"
             }
         }
         stage ("Publish to s3 bucket")
