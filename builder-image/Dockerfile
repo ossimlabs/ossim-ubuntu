@@ -14,7 +14,7 @@ ENV OSSIM_DEV_HOME=/work \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 RUN apt update -y \
-    && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev ffmpeg libavcodec-dev \
+    && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev yasm ffmpeg libavcodec-dev \
     libavformat-dev  libavdevice-dev libgdal-dev  openjdk-11-jdk qt4-dev-tools
 
 
