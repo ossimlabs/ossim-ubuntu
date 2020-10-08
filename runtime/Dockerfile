@@ -1,7 +1,5 @@
-#FROM nexus-docker-public-group.ossim.io/ubuntu:18.04
-#FROM nexus-docker-public-hosted.ossim.io/omar-micro-base:latest as builder
-FROM ossim-builder-ubuntu:latest as builder
-FROM ubuntu:18.04
+FROM nexus-docker-public-group.ossim.io/ubuntu:18.04 as builder
+
 
 WORKDIR /work
 
