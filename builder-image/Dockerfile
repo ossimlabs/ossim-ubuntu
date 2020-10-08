@@ -1,5 +1,5 @@
 FROM nexus-docker-public-group.ossim.io/ubuntu:18.04 as build
-WORKDIR /work
+
 
 ENV OSSIM_INSTALL_PREFIX=/usr/local \
     OSSIM_DATA=/data \
@@ -15,20 +15,21 @@ ENV OSSIM_INSTALL_PREFIX=/usr/local \
     KAKADU_VERSION=vs8_0_5-02003C
 
 
-COPY ./build-kakadu.sh ./build-ossim.sh ./build-joms.sh /work/
-ADD /builder-image/ossim/ /work/
-ADD /builder-image/ossim-oms/ /work/
-ADD /builder-image/ossim-plugin/ /work/
-ADD /builder-image/ossim-video/ /work/
-ADD /builder-image/ossim-private/ /work/
-# COPY  ./apache-groovy-binary-3.0.5.zip /work
 
 RUN apt update -y \
     && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev ffmpeg libavcodec-dev \
     libavformat-dev  libavdevice-dev libgdal-dev  openjdk-11-jdk qt4-dev-tools\
-    && ./build-kakadu.sh \
     && ./build-ossim.sh \
     # && ./build-joms.sh \
     && echo ""
 
-CMD bash
+
+RUN mkdir -p /work
+
+FROM scratch
+
+COPY --from=build / /
+
+WORKDIR /work
+
+CMD /build-ossim.sh
