@@ -10,13 +10,10 @@ ENV OSSIM_DEV_HOME=/work \
     OSSIM_DATA=/data \
     PATH=/usr/local/bin:/usr/bin:$PATH \
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/lib64 \
-    JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 \
-
+    JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 RUN apt update -y \
     && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev ffmpeg libavcodec-dev \
-    libavformat-dev libavdevice-dev libgdal-dev openjdk-11-jdk qt4-dev-tools
-
-
+    libavformat-dev  libavdevice-dev libgdal-dev  openjdk-11-jdk qt4-dev-tools
 COPY build-scripts /build-scripts
 COPY deps /deps
 WORKDIR /deps
@@ -36,6 +33,6 @@ ENV OSSIM_DEV_HOME=/work \
     OSSIM_DATA=/data \
     PATH=/usr/local/bin:/usr/bin:$PATH \
     LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$PATH \
-    JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 \
+    JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 WORKDIR /work
 CMD /build-scripts/build-ossim.sh
