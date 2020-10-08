@@ -97,7 +97,7 @@ podTemplate(
             
             container('git'){
                 dir("builder-image") {
-                    dir("deps/ossim-private"){
+                    dir("ossim-private"){
                         git(
                             url: 'git@github.com:Maxar-Corp/ossim-private.git',
                             credentialsId: 'ossimlabs-minion-ssh-key',
@@ -107,9 +107,8 @@ podTemplate(
                     
                     sh """
                         apk update && apk add bash
-                        ./checkout-scripts/checkout-deps.sh
-                        
-                        cd deps/ossim-private
+
+                        cd ossim-private
                         git checkout "${KAKADU_VERSION}"
                     """
                 }
@@ -124,7 +123,8 @@ podTemplate(
                     dir("builder-image"){
                         sh """
                         apk update && apk add bash
-                        ./build.sh --network=host
+                        ./checkout-ossim.sh
+                        ./build-docker.sh --network=host
                         """
                     }
                 }

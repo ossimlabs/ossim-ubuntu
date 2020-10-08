@@ -10,7 +10,7 @@ We will first need to create a dependency builder image that will be used to bui
 
 ### Disable or modify private repos
 
-If you do not have access to the private repositories you will have to remove the kakadu support or if you have kakadu you will need to point that to your kakadu.  You will need to edit the file [build-ossim.sh](./compile-ossim/build-scripts/build-ossim.sh) and modify the variables:
+If you do not have access to the private repositories you will have to remove the kakadu support or if you have kakadu you will need to point that to your kakadu.  You will need to edit the file [build-ossim.sh](builder-image/build-ossim.sh) and modify the variables:
 
 ```bash
 export KAKADU_ROOT_SRC=$OSSIM_DEPS_HOME/ossim-private/kakadu/v7_7_1-01123C

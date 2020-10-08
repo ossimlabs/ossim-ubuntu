@@ -1,6 +1,6 @@
 compile-ossim/work/
 compile-ossim/output/
-compile-ossim/ossim-repos/
+builder-image/ossim-repos/
 builder-image/deps/
 ossim-dist-minimal-ubuntu.tgz
 .DS_Store
