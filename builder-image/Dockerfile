@@ -1,5 +1,4 @@
 FROM nexus-docker-public-group.ossim.io/ubuntu:18.04 as build
-
 ENV OSSIM_DEV_HOME=/work \
     OSSIM_HOME=/work/ossim \
     OSSIM_BUILD_DIR=/work/build \
@@ -12,29 +11,17 @@ ENV OSSIM_DEV_HOME=/work \
     PATH=/usr/local/bin:/usr/bin:$PATH \
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/lib64 \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-
-
 RUN apt update -y \
-    && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev libgnutls28-dev ffmpeg libavcodec-dev \
+    && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev ffmpeg libavcodec-dev \
     libavformat-dev  libavdevice-dev libgdal-dev  openjdk-11-jdk qt4-dev-tools
-
-
 COPY build-scripts /build-scripts
-
 COPY deps /deps
-
 WORKDIR /deps
-
 RUN /build-scripts/build-deps.sh
-
 RUN yes | rm -r /deps/*/.git
-
 RUN mkdir -p /work
-
 FROM scratch
-
 COPY --from=build / /
-
 ENV OSSIM_DEV_HOME=/work \
     OSSIM_HOME=/work/ossim \
     OSSIM_BUILD_DIR=/work/build \
@@ -47,7 +34,5 @@ ENV OSSIM_DEV_HOME=/work \
     PATH=/usr/local/bin:/usr/bin:$PATH \
     LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64:$PATH \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-
 WORKDIR /work
-
 CMD /build-scripts/build-ossim.sh
