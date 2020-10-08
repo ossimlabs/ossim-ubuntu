@@ -2,6 +2,7 @@
 
 cd ffmpeg
 ./configure --prefix=/usr/local \
+            --disable-yasm \
             --enable-swscale --enable-avfilter --enable-avresample \
             --enable-libmp3lame --enable-libvorbis \
             --enable-librsvg --enable-libtheora --enable-libopenjpeg \
