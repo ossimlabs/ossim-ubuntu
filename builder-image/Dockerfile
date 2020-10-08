@@ -14,12 +14,13 @@ ENV OSSIM_INSTALL_PREFIX=/usr/local \
     # GROOVY_HOME=/work/groovy-3.0.5 \
     KAKADU_VERSION=vs8_0_5-02003C
 
+
 COPY ./build-kakadu.sh ./build-ossim.sh ./build-joms.sh /work/
-COPY ./ossim/ /work/ossim/
-COPY ./ossim-oms/ /work/ossim-oms/
-COPY ./ossim-plugins/ /work/ossim-plugins/
-COPY ./ossim-video/ /work/ossim-video/
-COPY ./ossim-private/ /work/ossim-private/
+COPY ./ossim/ /work
+COPY ./ossim-oms/ /work
+COPY ./ossim-plugins/ /work
+COPY ./ossim-video/ /work
+COPY ./ossim-private/ /work
 # COPY  ./apache-groovy-binary-3.0.5.zip /work
 
 RUN apt update -y \
