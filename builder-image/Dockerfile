@@ -11,12 +11,9 @@ ENV OSSIM_DEV_HOME=/work \
     PATH=/usr/local/bin:/usr/bin:$PATH \
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/lib64 \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-RUN apt update -y \
-    && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev ffmpeg libavcodec-dev \
-    libavformat-dev  libavdevice-dev libgdal-dev  openjdk-11-jdk qt4-dev-tools
-
-RUN apt update -y \
-    && apt install -y nasm yasm
+RUN apt-get update -y \
+    && apt-get install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev ffmpeg libavcodec-dev \
+    libavformat-dev libavdevice-dev libgdal-dev openjdk-11-jdk qt4-dev-tools yasm nasm
 
 
 COPY build-scripts /build-scripts
