@@ -15,7 +15,7 @@ ENV OSSIM_DEV_HOME=/work \
 
 
 RUN apt update -y \
-    && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev nasm yasm libgnutls28-dev ffmpeg libavcodec-dev \
+    && apt install -y cmake git vim g++ libgeos-dev libgeotiff-dev libcurl4-openssl-dev libgnutls28-dev ffmpeg libavcodec-dev \
     libavformat-dev  libavdevice-dev libgdal-dev  openjdk-11-jdk qt4-dev-tools
 
 
