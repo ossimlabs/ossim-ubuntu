@@ -16,11 +16,11 @@ ENV OSSIM_INSTALL_PREFIX=/usr/local \
 
 
 COPY ./build-kakadu.sh ./build-ossim.sh ./build-joms.sh /work/
-COPY ./ossim/ /work
-COPY ./ossim-oms/ /work
-COPY ./ossim-plugins/ /work
-COPY ./ossim-video/ /work
-COPY ./ossim-private/ /work
+COPY -r ./ossim/ /work/
+COPY -r ./ossim-oms/ /work/
+COPY -r ./ossim-plugins/ /work/
+COPY -r ./ossim-video/ /work/
+COPY -r ./ossim-private/ /work/
 # COPY  ./apache-groovy-binary-3.0.5.zip /work
 
 RUN apt update -y \
